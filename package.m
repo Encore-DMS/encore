@@ -111,8 +111,8 @@ function package(skipTests)
     fclose(fid);
 
     % Apps won't seems to be packaged unless they are in the root directory.
-    movefile(fullfile(targetPath, 'apps', '*.mlappinstall'), fullfile(rootPath));
-    moveback = onCleanup(@()movefile(fullfile(rootPath, '*.mlappinstall'), fullfile(targetPath, 'apps')));
+    %movefile(fullfile(targetPath, 'apps', '*.mlappinstall'), fullfile(rootPath));
+    %moveback = onCleanup(@()movefile(fullfile(rootPath, '*.mlappinstall'), fullfile(targetPath, 'apps')));
 
     matlab.addons.toolbox.packageToolbox(fullfile(rootPath, 'Encore.prj'),  fullfile(targetPath, 'Encore'));
 end
