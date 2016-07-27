@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding="utf-8"?>
+<toc version="2.0">
+
+    <tocitem target="Home.html">Stage
+        <tocitem target="Getting-Started.html">Getting Started
+            <tocitem target="Encore-Product-Description.html">Encore Product Description</tocitem>
+            <tocitem target="System-Requirements.html">System Requirements</tocitem>
+            <tocitem target="Installation.html">Installation</tocitem>
+        </tocitem>
+        <tocitem target="Encore-Development.html">Stage Development
+            <tocitem target="Style-Guide.html">Style Guide</tocitem>
+            <tocitem target="How-to-Contribute.html">How to Contribute</tocitem>
+        </tocitem>
+    </tocitem>
+
+</toc>
