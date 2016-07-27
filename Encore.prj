@@ -45,7 +45,9 @@ site.m
 README.md</param.exclude.filters>
     <param.examples />
     <param.demosxml />
-    <param.apps />
+    <param.apps>
+      <file>${PROJECT_ROOT}\Encore.mlappinstall</file>
+    </param.apps>
     <param.docs>${PROJECT_ROOT}\src\main\resources\docs</param.docs>
     <param.matlabpath.excludes />
     <unset>
@@ -56,13 +58,13 @@ README.md</param.exclude.filters>
       <param.platforms />
       <param.examples />
       <param.demosxml />
-      <param.apps />
       <param.matlabpath.excludes />
     </unset>
     <fileset.rootdir>
       <file>C:\Users\Client Admin\Documents\src\Encore-DMS\encore-matlab</file>
     </fileset.rootdir>
     <fileset.rootfiles>
+      <file>${PROJECT_ROOT}\Encore.mlappinstall</file>
       <file>${PROJECT_ROOT}\lib</file>
       <file>${PROJECT_ROOT}\src</file>
     </fileset.rootfiles>
