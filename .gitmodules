@@ -1,6 +1,3 @@
-[submodule "src/site/wiki"]
-	path = src/site/wiki
-	url = https://github.com/Encore-DMS/encore-matlab.wiki.git
 [submodule "apps/encore-matlab-ui"]
 	path = apps/encore-matlab-ui
 	url = https://github.com/Encore-DMS/encore-matlab-ui.git
