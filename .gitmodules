@@ -1,3 +1,6 @@
 [submodule "apps/encore-matlab-ui"]
 	path = apps/encore-matlab-ui
 	url = https://github.com/Encore-DMS/encore-matlab-ui.git
+[submodule "src/site/docs"]
+	path = src/site/docs
+	url = https://github.com/Encore-DMS/encore-docs.git
