@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding="utf-8"?>
 <toc version="2.0">
 
-    <tocitem target="Home.html">Encore
+    <tocitem target="README.html">Encore
         <tocitem target="Getting-Started.html">Getting Started
             <tocitem target="Encore-Product-Description.html">Encore Product Description</tocitem>
             <tocitem target="System-Requirements.html">System Requirements</tocitem>
