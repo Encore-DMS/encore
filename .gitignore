@@ -7,6 +7,7 @@
 # Binary
 *.mlappinstall
 *.h5
+/lib/Core/
 target/
 
 # Generated docs

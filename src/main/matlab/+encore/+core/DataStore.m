@@ -1,4 +1,4 @@
-classdef DataSource < encore.core.CoreObject
+classdef DataStore < encore.core.CoreObject
     
     properties (SetAccess = private)
         url
@@ -6,7 +6,7 @@ classdef DataSource < encore.core.CoreObject
     
     methods
         
-        function obj = DataSource(url)
+        function obj = DataStore(url)
             % FIXME: Fake cobj
             cobj.getURL = @()url;
             
