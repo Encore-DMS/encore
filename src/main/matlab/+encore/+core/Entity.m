@@ -1,17 +1,17 @@
-classdef DataStore < encore.core.CoreObject
+classdef Entity < encore.core.CoreObject
     
     properties (SetAccess = private)
-        url
+        uuid
     end
     
     methods
         
-        function obj = DataStore(cobj)
+        function obj = Entity(cobj)
             obj@encore.core.CoreObject(cobj);
         end
         
-        function u = get.url(obj)
-            u = char(obj.cobj.getUrl());
+        function i = get.uuid(obj)
+            i = char(obj.cobj.getUuid().toString());
         end
         
     end

@@ -1,4 +1,4 @@
-classdef Project < encore.core.CoreObject
+classdef Project < encore.core.TimelineEntity
     
     properties
         name
@@ -8,7 +8,7 @@ classdef Project < encore.core.CoreObject
     methods
         
         function obj = Project(cobj)
-            obj@encore.core.CoreObject(cobj);
+            obj@encore.core.TimelineEntity(cobj);
         end
         
         function n = get.name(obj)
@@ -25,6 +25,22 @@ classdef Project < encore.core.CoreObject
         
         function set.purpose(obj, p)
             obj.cobj.setPurpose(p);
+        end
+        
+        function e = insertExperiment(obj, purpose, startTime, endTime)
+            if nargin < 5
+                cendTime = [];
+            else
+                cendTime = obj.zonedDateTimeFromDatetime(endTime);
+            end
+            cstartTime = obj.zonedDateTimeFromDatetime(startTime);            
+            cexp = obj.tryCoreWithReturn(@()obj.cobj.insertExperiment(purpose, cstartTime, cendTime));
+            e = encore.core.Experiment(cexp);
+        end
+        
+        function e = getExperiments(obj)
+            ce = obj.tryCoreWithReturn(@()obj.cobj.getExperiments());
+            e = obj.cellArrayFromStream(ce, @encore.core.Experiment);
         end
         
     end
