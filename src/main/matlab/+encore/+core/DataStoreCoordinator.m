@@ -11,6 +11,11 @@ classdef DataStoreCoordinator < encore.core.CoreObject
             c = encore.core.DataContext(cctx);
         end
         
+        function s = getPrimaryDataStore(obj)
+            cstr = obj.tryCoreWithReturn(@()obj.cobj.getPrimaryDataStore());
+            s = encore.core.DataStore(cstr);
+        end
+        
     end
     
 end

@@ -6,6 +6,10 @@ classdef DataContext < encore.core.CoreObject
             obj@encore.core.CoreObject(cobj);
         end
         
+        function c = getCoordinator(obj)
+            c = encore.core.DataStoreCoordinator(obj.cobj.getCoordinator());
+        end
+        
         function p = insertProject(obj, name, purpose, startTime, endTime)
             if nargin < 5
                 cendTime = [];
