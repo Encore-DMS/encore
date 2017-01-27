@@ -43,6 +43,10 @@ classdef Project < encore.core.TimelineEntity
             e = obj.cellArrayFromStream(ce, @encore.core.Experiment);
         end
         
+        function t = getEntityType(obj) %#ok<MANU>
+            t = encore.core.EntityType.PROJECT;
+        end
+        
     end
     
 end

@@ -18,6 +18,10 @@ classdef Experiment < encore.core.TimelineEntity
             obj.cobj.setPurpose(p);
         end
         
+        function t = getEntityType(obj) %#ok<MANU>
+            t = encore.core.EntityType.EXPERIMENT;
+        end
+        
     end
     
 end
