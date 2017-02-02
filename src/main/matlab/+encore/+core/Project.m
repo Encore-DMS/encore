@@ -28,7 +28,7 @@ classdef Project < encore.core.TimelineEntity
         end
         
         function e = insertExperiment(obj, purpose, startTime, endTime)
-            if nargin < 5
+            if nargin < 4
                 cendTime = [];
             else
                 cendTime = obj.zonedDateTimeFromDatetime(endTime);
@@ -36,6 +36,10 @@ classdef Project < encore.core.TimelineEntity
             cstartTime = obj.zonedDateTimeFromDatetime(startTime);            
             cexp = obj.tryCoreWithReturn(@()obj.cobj.insertExperiment(purpose, cstartTime, cendTime));
             e = encore.core.Experiment(cexp);
+        end
+        
+        function addExperiment(obj, experiment)
+            obj.tryCore(@()obj.cobj.addExperiment(experiment.cobj));
         end
         
         function e = getExperiments(obj)
