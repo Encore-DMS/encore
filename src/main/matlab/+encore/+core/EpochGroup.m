@@ -5,6 +5,7 @@ classdef EpochGroup < encore.core.TimelineEntity
     end
     
     properties (SetAccess = private)
+        experiment
         source
     end
     
@@ -20,6 +21,10 @@ classdef EpochGroup < encore.core.TimelineEntity
         
         function set.label(obj, l)
             obj.cobj.setLabel(l);
+        end
+        
+        function e = get.experiment(obj)
+            e = encore.core.Experiment(obj.cobj.getExperiment());
         end
         
         function s = get.source(obj)
