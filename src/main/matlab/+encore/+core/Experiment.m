@@ -10,14 +10,6 @@ classdef Experiment < encore.core.TimelineEntity
             obj@encore.core.TimelineEntity(cobj);
         end
         
-        function p = get.purpose(obj)
-            p = char(obj.cobj.getPurpose());
-        end
-        
-        function set.purpose(obj, p)
-            obj.cobj.setPurpose(p);
-        end
-        
         function addProject(obj, project)
             obj.tryCore(@()obj.cobj.addProject(project.cobj));
         end
@@ -25,6 +17,14 @@ classdef Experiment < encore.core.TimelineEntity
         function p = getProjects(obj)
             cp = obj.tryCoreWithReturn(@()obj.cobj.getProjects());
             p = obj.cellArrayFromStream(cp, @encore.core.Project);
+        end
+        
+        function p = get.purpose(obj)
+            p = char(obj.cobj.getPurpose());
+        end
+        
+        function set.purpose(obj, p)
+            obj.cobj.setPurpose(p);
         end
         
         function s = insertSource(obj, label)

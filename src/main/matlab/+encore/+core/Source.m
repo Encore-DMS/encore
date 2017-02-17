@@ -26,6 +26,16 @@ classdef Source < encore.core.AnnotatableEntity
             e = encore.core.Experiment(obj.cobj.getExperiment());
         end
         
+        function s = insertSource(obj, label)
+            cs = obj.tryCoreWithReturn(@()obj.cobj.insertSource(label));
+            s = encore.core.Source(cs);
+        end
+        
+        function s = getChildren(obj)
+            cs = obj.tryCoreWithReturn(@()obj.cobj.getChildren());
+            s = obj.cellArrayFromStream(cs, @encore.core.Source);
+        end
+        
         function t = getEntityType(obj) %#ok<MANU>
             t = encore.core.EntityType.SOURCE;
         end

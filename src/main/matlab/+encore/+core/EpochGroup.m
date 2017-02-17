@@ -6,6 +6,7 @@ classdef EpochGroup < encore.core.TimelineEntity
     
     properties (SetAccess = private)
         experiment
+        parent
         source
     end
     
@@ -13,6 +14,18 @@ classdef EpochGroup < encore.core.TimelineEntity
         
         function obj = EpochGroup(cobj)
             obj@encore.core.TimelineEntity(cobj);
+        end
+        
+        function e = get.experiment(obj)
+            e = encore.core.Experiment(obj.cobj.getExperiment());
+        end
+        
+        function p = get.parent(obj)
+            p = encore.core.EpochGroup(obj.cobj.getParent());
+        end
+        
+        function s = get.source(obj)
+            s = encore.core.Source(obj.cobj.getSource());
         end
         
         function l = get.label(obj)
@@ -23,12 +36,32 @@ classdef EpochGroup < encore.core.TimelineEntity
             obj.cobj.setLabel(l);
         end
         
-        function e = get.experiment(obj)
-            e = encore.core.Experiment(obj.cobj.getExperiment());
+        function g = insertEpochGroup(obj, source, label, startTime, endTime)
+            if nargin < 5
+                cendTime = [];
+            else
+                cendTime = obj.zonedDateTimeFromDatetime(endTime);
+            end
+            cstartTime = obj.zonedDateTimeFromDatetime(startTime);
+            cg = obj.tryCoreWithReturn(@()obj.cobj.insertEpochGroup(source.cobj, label, cstartTime, cendTime));
+            g = encore.core.EpochGroup(cg);
         end
         
-        function s = get.source(obj)
-            s = encore.core.Source(obj.cobj.getSource());
+        function g = getChildren(obj)
+            cg = obj.tryCoreWithReturn(@()obj.cobj.getChildren());
+            g = obj.cellArrayFromStream(cg, @encore.core.EpochGroup);
+        end
+        
+        function b = insertEpochBlock(obj, protocolId, parameters, startTime, endTime)
+            if nargin < 5
+                cendTime = [];
+            else
+                cendTime = obj.zonedDateTimeFromDatetime(endTime);
+            end
+            cstartTime = obj.zonedDateTimeFromDatetime(startTime);
+            cparameters = [];
+            cb = obj.tryCoreWithReturn(@()obj.cobj.insertEpochBlock(protocolId, cparameters, cstartTime, cendTime));
+            b = encore.core.EpochBlock(cb);
         end
         
         function t = getEntityType(obj) %#ok<MANU>
