@@ -35,6 +35,10 @@ classdef EpochBlock < encore.core.TimelineEntity
             e = obj.cellArrayFromStream(ce, @encore.core.Epoch);
         end
         
+        function t = getEntityType(obj) %#ok<MANU>
+            t = encore.core.EntityType.EPOCH_BLOCK;
+        end
+        
     end
     
 end

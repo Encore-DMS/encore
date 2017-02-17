@@ -64,6 +64,11 @@ classdef EpochGroup < encore.core.TimelineEntity
             b = encore.core.EpochBlock(cb);
         end
         
+        function b = getEpochBlocks(obj)
+            cb = obj.tryCoreWithReturn(@()obj.cobj.getEpochBlocks());
+            b = obj.cellArrayFromStream(cb, @encore.core.EpochBlock);
+        end
+        
         function t = getEntityType(obj) %#ok<MANU>
             t = encore.core.EntityType.EPOCH_GROUP;
         end
