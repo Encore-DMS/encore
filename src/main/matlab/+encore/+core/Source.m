@@ -6,6 +6,7 @@ classdef Source < encore.core.AnnotatableEntity
     
     properties (SetAccess = private)
         experiment
+        parent
     end
     
     methods
@@ -14,16 +15,20 @@ classdef Source < encore.core.AnnotatableEntity
             obj@encore.core.AnnotatableEntity(cobj);
         end
         
+        function e = get.experiment(obj)
+            e = encore.core.Experiment(obj.cobj.getExperiment());
+        end
+        
+        function p = get.parent(obj)
+            p = encore.core.Source(obj.cobj.getParent());
+        end
+        
         function l = get.label(obj)
             l = char(obj.cobj.getLabel());
         end
         
         function set.label(obj, l)
             obj.cobj.setLabel(l);
-        end
-        
-        function e = get.experiment(obj)
-            e = encore.core.Experiment(obj.cobj.getExperiment());
         end
         
         function s = insertSource(obj, label)

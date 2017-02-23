@@ -37,6 +37,16 @@ classdef Experiment < encore.core.TimelineEntity
             s = obj.cellArrayFromStream(cs, @encore.core.Source);
         end
         
+        function d = insertDevice(obj, name, manufacturer)
+            cd = obj.tryCoreWithReturn(@()obj.cobj.insertDevice(name, manufacturer));
+            d = encore.core.Device(cd);
+        end
+        
+        function d = getDevices(obj)
+            cd = obj.tryCoreWithReturn(@()obj.cobj.getDevices());
+            d = obj.cellArrayFromStream(cd, @encore.core.Device);
+        end
+        
         function g = insertEpochGroup(obj, source, label, startTime, endTime)
             if nargin < 5
                 cendTime = [];
