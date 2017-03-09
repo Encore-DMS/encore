@@ -27,13 +27,19 @@ classdef Experiment < encore.core.TimelineEntity
             obj.cobj.setPurpose(p);
         end
         
-        function s = insertSource(obj, label)
-            cs = obj.tryCoreWithReturn(@()obj.cobj.insertSource(label));
+        function s = insertSource(obj, label, creationTime, identifier)
+            ctime = obj.zonedDateTimeFromDatetime(creationTime);
+            cs = obj.tryCoreWithReturn(@()obj.cobj.insertSource(label, ctime, identifier));
             s = encore.core.Source(cs);
         end
         
         function s = getSources(obj)
             cs = obj.tryCoreWithReturn(@()obj.cobj.getSources());
+            s = obj.cellArrayFromStream(cs, @encore.core.Source);
+        end
+        
+        function s = getSourcesWithIdentifier(obj, identifier)
+            cs = obj.tryCoreWithReturn(@()obj.cobj.getSourcesWithIdentifier(identifier));
             s = obj.cellArrayFromStream(cs, @encore.core.Source);
         end
         
@@ -45,6 +51,15 @@ classdef Experiment < encore.core.TimelineEntity
         function d = getDevices(obj)
             cd = obj.tryCoreWithReturn(@()obj.cobj.getDevices());
             d = obj.cellArrayFromStream(cd, @encore.core.Device);
+        end
+        
+        function d = getDevice(obj, name, manufacturer)
+            cd = obj.tryCoreWithReturn(@()obj.cobj.getDevice(name, manufacturer));
+            if cd.isPresent()
+                d = encore.core.Device(cd);
+            else
+                d = [];
+            end
         end
         
         function g = insertEpochGroup(obj, source, label, startTime, endTime)

@@ -52,15 +52,15 @@ classdef EpochGroup < encore.core.TimelineEntity
             g = obj.cellArrayFromStream(cg, @encore.core.EpochGroup);
         end
         
-        function b = insertEpochBlock(obj, protocolId, parameters, startTime, endTime)
+        function b = insertEpochBlock(obj, protocolId, protocolParameters, startTime, endTime)
             if nargin < 5
                 cendTime = [];
             else
                 cendTime = obj.zonedDateTimeFromDatetime(endTime);
             end
             cstartTime = obj.zonedDateTimeFromDatetime(startTime);
-            cparameters = [];
-            cb = obj.tryCoreWithReturn(@()obj.cobj.insertEpochBlock(protocolId, cparameters, cstartTime, cendTime));
+            cprotocolParameters = [];
+            cb = obj.tryCoreWithReturn(@()obj.cobj.insertEpochBlock(protocolId, cprotocolParameters, cstartTime, cendTime));
             b = encore.core.EpochBlock(cb);
         end
         

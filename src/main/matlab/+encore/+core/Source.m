@@ -2,10 +2,12 @@ classdef Source < encore.core.AnnotatableEntity
     
     properties
         label
+        identifier
     end
     
     properties (SetAccess = private)
         experiment
+        creationTime
         parent
     end
     
@@ -31,8 +33,21 @@ classdef Source < encore.core.AnnotatableEntity
             obj.cobj.setLabel(l);
         end
         
-        function s = insertSource(obj, label)
-            cs = obj.tryCoreWithReturn(@()obj.cobj.insertSource(label));
+        function t = get.creationTime(obj)
+            t = obj.datetimeFromZonedDateTime(obj.cobj.getCreationTime());
+        end
+        
+        function i = get.identifier(obj)
+            i = char(obj.cobj.getIdentifier());
+        end
+        
+        function set.identifier(obj, i)
+            obj.cobj.setIdentifier(i);
+        end
+        
+        function s = insertSource(obj, label, creationTime, identifier)
+            ctime = obj.zonedDateTimeFromDatetime(creationTime);
+            cs = obj.tryCoreWithReturn(@()obj.cobj.insertSource(label, ctime, identifier));
             s = encore.core.Source(cs);
         end
         

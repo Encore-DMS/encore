@@ -19,14 +19,15 @@ classdef EpochBlock < encore.core.TimelineEntity
             p = char(obj.cobj.getProtocolId());
         end
         
-        function e = insertEpoch(obj, startTime, endTime)
-            if nargin < 3
+        function e = insertEpoch(obj, protocolParameters, startTime, endTime)
+            if nargin < 4
                 cendTime = [];
             else
                 cendTime = obj.zonedDateTimeFromDatetime(endTime);
             end
+            cprotocolParameters = [];
             cstartTime = obj.zonedDateTimeFromDatetime(startTime);
-            ce = obj.tryCoreWithReturn(@()obj.cobj.insertEpoch(cstartTime, cendTime));
+            ce = obj.tryCoreWithReturn(@()obj.cobj.insertEpoch(cprotocolParameters, cstartTime, cendTime));
             e = encore.core.Epoch(ce);
         end
         
