@@ -28,16 +28,23 @@ classdef Epoch < encore.core.TimelineEntity
             r = obj.cellArrayFromStream(cr, @encore.core.Response);
         end
         
-        function s = insertStimulus(obj, device, deviceParameters, stimulusId, parameters, units)
+        function s = insertStimulus(obj, device, deviceParameters, stimulusId, parameters, units, data)
             cdeviceParameters = [];
             cparameters = [];
-            cs = obj.tryCoreWithReturn(@()obj.cobj.insertStimulus(device.cobj, cdeviceParameters, stimulusId, cparameters, units));
+            cdata = [];
+            cs = obj.tryCoreWithReturn(@()obj.cobj.insertStimulus(device.cobj, cdeviceParameters, stimulusId, cparameters, units, cdata));
             s = encore.core.Stimulus(cs);
         end
         
         function s = getStimuli(obj)
             cs = obj.tryCoreWithReturn(@()obj.cobj.getStimuli());
             s = obj.cellArrayFromStream(cs, @encore.core.Stimulus);
+        end
+        
+        function b = insertBackground(obj, device, deviceParameters, value, units, sampleRate, sampleRateUnits)
+            cdeviceParameters = [];
+            cb = obj.tryCoreWithReturn(@()obj.cobj.insertBackground(device.cobj, cdeviceParameters, value, units, sampleRate, sampleRateUnits));
+            b = encore.core.Background(cb);
         end
         
         function t = getEntityType(obj) %#ok<MANU>

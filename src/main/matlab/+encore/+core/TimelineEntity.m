@@ -1,4 +1,4 @@
-classdef TimelineEntity < encore.core.AnnotatableEntity
+classdef TimelineEntity < encore.core.ResourceAnnotatableEntity
     
     properties (SetAccess = private)
         startTime
@@ -8,7 +8,7 @@ classdef TimelineEntity < encore.core.AnnotatableEntity
     methods
         
         function obj = TimelineEntity(cobj)
-            obj@encore.core.AnnotatableEntity(cobj);
+            obj@encore.core.ResourceAnnotatableEntity(cobj);
         end
         
         function t = get.startTime(obj)

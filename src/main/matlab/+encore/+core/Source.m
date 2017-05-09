@@ -1,4 +1,4 @@
-classdef Source < encore.core.AnnotatableEntity
+classdef Source < encore.core.ResourceAnnotatableEntity
     
     properties
         label
@@ -14,7 +14,7 @@ classdef Source < encore.core.AnnotatableEntity
     methods
         
         function obj = Source(cobj)
-            obj@encore.core.AnnotatableEntity(cobj);
+            obj@encore.core.ResourceAnnotatableEntity(cobj);
         end
         
         function e = get.experiment(obj)

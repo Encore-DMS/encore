@@ -38,8 +38,8 @@ classdef Experiment < encore.core.TimelineEntity
             s = obj.cellArrayFromStream(cs, @encore.core.Source);
         end
         
-        function s = getSourcesWithIdentifier(obj, identifier)
-            cs = obj.tryCoreWithReturn(@()obj.cobj.getSourcesWithIdentifier(identifier));
+        function s = getAllSourcesWithIdentifier(obj, identifier)
+            cs = obj.tryCoreWithReturn(@()obj.cobj.getAllSourcesWithIdentifier(identifier));
             s = obj.cellArrayFromStream(cs, @encore.core.Source);
         end
         
@@ -55,7 +55,7 @@ classdef Experiment < encore.core.TimelineEntity
         
         function d = getDevice(obj, name, manufacturer)
             cd = obj.tryCoreWithReturn(@()obj.cobj.getDevice(name, manufacturer));
-            if cd.isPresent()
+            if ~isempty(cd)
                 d = encore.core.Device(cd);
             else
                 d = [];

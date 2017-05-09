@@ -1,4 +1,4 @@
-classdef Device < encore.core.AnnotatableEntity
+classdef Device < encore.core.ResourceAnnotatableEntity
     
     properties (SetAccess = private)
         experiment
@@ -9,7 +9,7 @@ classdef Device < encore.core.AnnotatableEntity
     methods
         
         function obj = Device(cobj)
-            obj@encore.core.AnnotatableEntity(cobj);
+            obj@encore.core.ResourceAnnotatableEntity(cobj);
         end
         
         function e = get.experiment(obj)

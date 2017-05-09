@@ -88,7 +88,36 @@ classdef (Abstract) CoreObject < handle
             zdt = java.time.ZonedDateTime.of(t.Year, t.Month, t.Day, t.Hour, t.Minute, floor(t.Second), round(10^9*rem(t.Second, 1)), zone);
         end
         
+        function v = propertyValueFromValue(obj, v) %#ok<INUSL>
+            v = javaValue(v);
+        end
+        
     end
     
 end
 
+function jv = javaValue(v)
+    jv = v;
+    if isa(jv, 'java.lang.Object')
+        return;
+    end
+    
+    switch class(v)
+        case {'int8', 'uint8'}
+            jv = java.lang.Byte(v);
+        case {'int16', 'uint16'}
+            jv = java.lang.Short(v);
+        case {'int32', 'uint32'}
+            jv = java.lang.Integer(v);
+        case {'int64', 'uint64'}
+            jv = java.lang.Long(v);
+        case 'single'
+            jv = java.lang.Float(v);
+        case 'double'
+            jv = java.lang.Double(v);
+        case 'logical'
+            jv = java.lang.Boolean(v);
+        case 'char'
+            jv = java.lang.String(v);
+    end
+end

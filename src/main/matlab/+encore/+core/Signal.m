@@ -1,4 +1,4 @@
-classdef Signal < encore.core.AnnotatableEntity
+classdef Signal < encore.core.ResourceAnnotatableEntity
     
     properties (SetAccess = private)
         epoch
@@ -9,7 +9,7 @@ classdef Signal < encore.core.AnnotatableEntity
     methods
         
         function obj = Signal(cobj)
-            obj@encore.core.AnnotatableEntity(cobj);
+            obj@encore.core.ResourceAnnotatableEntity(cobj);
         end
         
         function e = get.epoch(obj)
