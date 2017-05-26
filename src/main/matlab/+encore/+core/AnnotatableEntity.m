@@ -18,19 +18,20 @@ classdef AnnotatableEntity < encore.core.Entity
         end
         
         function m = getProperties(obj)
-            m = [];
+            wrapValue = @(v)obj.mapFromJavaMap(v, @obj.valueFromPropertyValue);
+            m = obj.mapFromJavaMap(obj.cobj.getProperties(), wrapValue, @(k)encore.core.User(k).username);
         end
         
         function m = getProperty(obj, key)
-            m = [];
+            m = obj.mapFromJavaMap(obj.cobj.getProperty(key), @obj.valueFromPropertyValue);
         end
         
         function v = getUserProperty(obj, user, key)
-            v = [];
+            v = obj.valueFromPropertyValue(obj.cobj.getUserProperty(user.cobj, key));
         end
         
         function m = getUserProperties(obj, user)
-            m = [];
+            m = obj.mapFromJavaMap(obj.cobj.getUserProperties(user.cobj), @obj.valueFromPropertyValue);
         end
         
         function addKeyword(obj, keyword)

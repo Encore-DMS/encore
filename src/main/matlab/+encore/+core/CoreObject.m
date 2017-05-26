@@ -72,6 +72,22 @@ classdef (Abstract) CoreObject < handle
             end
         end
         
+        function m = mapFromJavaMap(obj, jmap, wrapValue, wrapKey) %#ok<INUSL>
+            if nargin < 3
+                wrapValue = @(v)(v);
+            end
+            if nargin < 4
+                wrapKey = @(k)(k);
+            end
+            
+            m = containers.Map();
+            iter = jmap.entrySet().iterator();
+            while iter.hasNext()
+                kv = iter.next();
+                m(char(wrapKey(kv.getKey()))) = wrapValue(kv.getValue());
+            end
+        end
+        
         function t = datetimeFromZonedDateTime(obj, zdt) %#ok<INUSL>
             second = double(zdt.getSecond()) + (double(zdt.getNano()) / 10^9);
             t = datetime(zdt.getYear(), zdt.getMonthValue(), zdt.getDayOfMonth(), zdt.getHour(), zdt.getMinute(), second);
@@ -89,35 +105,25 @@ classdef (Abstract) CoreObject < handle
         end
         
         function v = propertyValueFromValue(obj, v) %#ok<INUSL>
-            v = javaValue(v);
+            if iscell(v) || isstruct(v) || (isempty(v) && isnumeric(v))
+                v = savejson('', v, 'Compact', true);
+            end
+        end
+        
+        function v = valueFromPropertyValue(obj, v) %#ok<INUSL>
+            if ischar(v)
+                if strcmp(v, 'null')
+                    v = [];
+                elseif strcmp(v, '[]')
+                    v = {};
+                elseif ~isempty(regexp(v, '^\s*(?:\[.+\])|(?:\{.+\})\s*$', 'once'))
+                    try %#ok<TRYNC>
+                        v = loadjson(v);
+                    end
+                end
+            end
         end
         
     end
     
-end
-
-function jv = javaValue(v)
-    jv = v;
-    if isa(jv, 'java.lang.Object')
-        return;
-    end
-    
-    switch class(v)
-        case {'int8', 'uint8'}
-            jv = java.lang.Byte(v);
-        case {'int16', 'uint16'}
-            jv = java.lang.Short(v);
-        case {'int32', 'uint32'}
-            jv = java.lang.Integer(v);
-        case {'int64', 'uint64'}
-            jv = java.lang.Long(v);
-        case 'single'
-            jv = java.lang.Float(v);
-        case 'double'
-            jv = java.lang.Double(v);
-        case 'logical'
-            jv = java.lang.Boolean(v);
-        case 'char'
-            jv = java.lang.String(v);
-    end
 end

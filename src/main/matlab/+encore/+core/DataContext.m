@@ -26,6 +26,11 @@ classdef DataContext < encore.core.CoreObject
             p = obj.cellArrayFromStream(cp, @encore.core.Project);
         end
         
+        function u = getAuthenticatedUser(obj)
+            cu = obj.tryCoreWithReturn(@()obj.cobj.getAuthenticatedUser());
+            u = encore.core.User(cu);
+        end
+        
     end
     
 end
