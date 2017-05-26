@@ -43,15 +43,16 @@ classdef AnnotatableEntity < encore.core.Entity
         end
         
         function m = getKeywords(obj)
-            m = [];
+            mm = obj.cobj.getKeywords();
+            m = obj.mapFromJavaMap(mm.asMap(), @(v)cell(v.toArray()), @(k)encore.core.User(k).username);
         end
         
         function k = getAllKeywords(obj)
-            k = [];
+            k = obj.cellArrayFromStream(obj.cobj.getAllKeywords());
         end
         
         function k = getUserKeywords(obj, user)
-            k = [];
+            k = obj.cellArrayFromStream(obj.cobj.getUserKeywords(user.cobj));
         end
         
         function addNote(obj, time, text)

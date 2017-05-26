@@ -20,7 +20,7 @@ classdef AnnotatableEntityTest < encore.TestBase
     
     methods (Test)
         
-        function testAddProperties(obj)
+        function testProperties(obj)
             expected = containers.Map();
             expected('uint16') = uint16(12);
             expected('uint16v') = uint16([1; 2; 3; 4; 5]);
@@ -35,32 +35,27 @@ classdef AnnotatableEntityTest < encore.TestBase
                 obj.entity.addProperty(keys{i}, expected(keys{i}));
             end
             
-            actual = obj.entity.getUserProperties(obj.user);
+            obj.verifyEqual(obj.entity.getUserProperties(obj.user), expected);
             
-            obj.verifyEqual(actual, expected);
+            obj.entity.removeProperty('double');
+            expected.remove('double');
+            
+            obj.verifyEqual(obj.entity.getUserProperties(obj.user), expected);
         end
         
-        function testRemoveProperties(obj)
-            expected = containers.Map();
-            expected('one') = 'one';
-            expected('two') = 2.2;
-            expected('three') = [1; 2; 3];
-            expected('four') = struct('a', 3');
+        function testKeywords(obj)
+            expected = {'one', 'two', 'three'};
             
-            keys = expected.keys;
-            for i = 1:numel(keys)
-                obj.entity.addProperty(keys{i}, expected(keys{i}));
+            for i = 1:numel(expected)
+                obj.entity.addKeyword(expected{i});
             end
             
-            obj.entity.removeProperty('two');
-            expected.remove('two');
+            obj.verifyEqual(obj.entity.getUserKeywords(obj.user), expected);
             
-            obj.entity.removeProperty('four');
-            expected.remove('four');
+            obj.entity.removeKeyword('two');
+            expected(2) = [];
             
-            actual = obj.entity.getUserProperties(obj.user);
-            
-            obj.verifyEqual(actual, expected);
+            obj.verifyEqual(obj.entity.getUserKeywords(obj.user), expected);
         end
         
     end
