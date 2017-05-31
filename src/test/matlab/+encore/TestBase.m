@@ -24,5 +24,21 @@ classdef TestBase < matlab.unittest.TestCase
         
     end
     
+    methods
+        
+        function verifyCellsAreEquivalent(obj, actual, expected)
+            obj.verifyEqual(size(actual), size(expected));
+            
+            for i = 1:numel(actual)
+                equal = zeros(1, numel(expected));
+                for j = 1:numel(expected)
+                    equal(j) = isequal(actual{i}, expected{j});
+                end
+                obj.verifyTrue(any(equal));
+            end     
+        end
+        
+    end
+        
 end
 

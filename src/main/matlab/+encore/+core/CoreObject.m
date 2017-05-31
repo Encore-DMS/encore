@@ -122,6 +122,9 @@ classdef (Abstract) CoreObject < handle
                     end
                 end
             end
+            if iscolumn(v)
+                v = v';
+            end
         end
         
     end
