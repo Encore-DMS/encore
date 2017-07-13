@@ -107,6 +107,8 @@ classdef (Abstract) CoreObject < handle
         function v = propertyValueFromValue(obj, v) %#ok<INUSL>
             if iscell(v) || isstruct(v) || (isempty(v) && isnumeric(v))
                 v = savejson('', v, 'Compact', true);
+            elseif isempty(v) && ischar(v)
+                v = java.lang.String(v);
             end
         end
         
